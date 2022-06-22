@@ -1,0 +1,136 @@
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <h1>USUARIOS</h1>
+    <div class="card-btn">
+        <p-button label="Crear" icon="pi pi-users" styleClass="p-button-secondary" badgeClass="p-badge-danger"
+            (click)="showModalDialog()">
+        </p-button>
+    </div>
+</div>
+<p></p>
+
+<p-toast *ngIf="banderD"></p-toast>
+
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="card">
+        <p-table [value]="users" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+            currentPageReportTemplate="{last} de {totalRecords}"
+            [rowsPerPageOptions]="[10,25,50, totalPag<50?60:totalPag]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>E-mail</th>
+                    <th>Telefono</th>
+                    <th>Ciudad</th>
+                    <th>Pais</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-users>
+                <tr>
+                    <td>{{users.nombre}}</td>
+                    <td>{{users.apellido}}</td>
+                    <td>{{users.email}}</td>
+                    <td>{{users.num_telefono}}</td>
+                    <td>{{users.ciudad}}</td>
+                    <td>{{users.pais}}</td>
+                    <td> <button pButton type="button" icon="pi pi-trash" class="p-button-danger p-mr-1" style="height: 35px;"
+                            pTooltip="Eliminar" tooltipPosition="bottom" (click)="deleteUser(users.id)"></button>
+                        <button pButton type="button" icon="pi pi-user-edit" class="p-button-warning" style="height: 35px;"
+                            pTooltip="Modificar" tooltipPosition="bottom" (click)="selectUpdate(users)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                <!--  <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button> -->
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <!--  <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button> -->
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<!-- Creacion -->
+<p-dialog header="Creación de usuarios" [(visible)]="displayModalC" [modal]="true" [style]="{width: '80%'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-toast></p-toast>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Nombre(s)<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.nombre">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Apellido(s)<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.apellido">
+                </div>
+                <div class="col-md-6">
+                    <label for="">E-mail<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.email">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Telefono<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.num_telefono">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Ciudad<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.ciudad">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Pais<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_user.pais">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-plus-circle" (click)="createUser()" label="Crear usuario" class="p-button-text">
+        </p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- Actualizacion -->
+<p-dialog header="Actualización de usuarios" [(visible)]="displayModalUp" [modal]="true" [style]="{width: '80%'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-toast></p-toast>
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Nombre(s)<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_userUp.nombre">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Apellido(s)<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_userUp.apellido">
+                </div>
+               
+                <div class="col-md-6">
+                    <label for="">E-mail<span class="label-oblig"> - Obligatorio</span></label>
+                    <input type="email" class="form-control" type="text" pInputText [(ngModel)]="param_userUp.email">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Telefono<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_userUp.num_telefono">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Ciudad<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_userUp.ciudad">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Pais<span class="label-oblig"> - Obligatorio</span></label>
+                    <input class="form-control" type="text" pInputText [(ngModel)]="param_userUp.pais">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton icon="pi pi-pencil" (click)="updateUser()" type="button" label="Actualizar usuario" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
